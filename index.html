@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Schedule</h1>
+        <div id="attendanceInfo">
+            <h3>Attendance:</h3>
+            <p><strong>Shift Solo:</strong> <span id="soloList"></span></p>
+            <p><strong>Shift Duo:</strong> <span id="duoList"></span></p>
+        </div>
+        <button id="processSchedule">Process Schedule</button>
+        <h3>Updated Schedule:</h3>
+        <table id="scheduleTable">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Shift 1</th>
+                    <th>Shift 2</th>
+                    <th>Shift 3</th>
+                    <th>Off</th>
+                </tr>
+            </thead>
+            <tbody id="scheduleBody"></tbody>
+        </table>
+    </div>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h3 {
+            color: #333;
+        }
+        button#processSchedule {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button#processSchedule:hover {
+            background-color: #45a049;
+        }
+        table#scheduleTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table#scheduleTable th, table#scheduleTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table#scheduleTable th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        table#scheduleTable tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+    </style>
+
+    <script src="script.js"></script>
+</body>
+</html>
