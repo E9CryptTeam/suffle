@@ -2,28 +2,86 @@
 // let people = ["Person1", "Adit", "Afif", "Anjar", "Person2", "Doni", "Farid", "Fiki", "Hilmi"];
 
 // 8 people
-let people = ["KOSONG", "Adit", "Afif", "Anjar", "Doni", "Farid", "Fiki", "Hilmi"];
+let people = ["Adit", "Afif", "Anjar", "Doni", "Farid", "Fiki", "Hilmi", "KOSONG"];
 
-let shftSolo = ["Anjar", "Doni", "Farid", "Fiki"];
-let shiftDuo = ["Adit", "Afif", "Hilmi"];
+let shiftSolo = [];
+let shiftDuo = [];
+
+function addToSoloList() {
+    const input = document.getElementById('soloInput');
+    const name = input.value.trim();
+    
+    if (name && !shiftSolo.includes(name)) {
+        shiftSolo.push(name);
+        input.value = '';
+        updateSoloDisplay();
+    }
+}
+
+function addToDuoList() {
+    const input = document.getElementById('duoInput'); 
+    const name = input.value.trim();
+    
+    if (name && !shiftDuo.includes(name)) {
+        shiftDuo.push(name);
+        input.value = '';
+        updateDuoDisplay();
+    }
+}
+
+function updateSoloDisplay() {
+    const soloList = document.getElementById('soloList');
+    soloList.textContent = shiftSolo.join(', ');
+}
+
+function updateDuoDisplay() {
+    const duoList = document.getElementById('duoList');
+    duoList.textContent = shiftDuo.join(', ');
+}
+
+// Initialize displays
+updateSoloDisplay();
+updateDuoDisplay();
+
+function clearShifts() {
+    shiftSolo = [];
+    shiftDuo = [];
+    updateSoloDisplay();
+    updateDuoDisplay();
+}
+
 
 function suffle(people) {
     function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
+        // Create a copy of the array excluding "KOSONG"
+        const nonKosongElements = array.filter(item => item !== "KOSONG");
+        
+        // Shuffle only the non-KOSONG elements
+        for (let i = nonKosongElements.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [nonKosongElements[i], nonKosongElements[j]] = [nonKosongElements[j], nonKosongElements[i]];
+        }
+        
+        // Put the shuffled elements back into original array, keeping "KOSONG" in its original position
+        let nonKosongIndex = 0;
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] !== "KOSONG") {
+                array[i] = nonKosongElements[nonKosongIndex];
+                nonKosongIndex++;
+            }
         }
     }
 
     function isValidSchedule(shuffledPeople) {
-        const invalidPeople = ["Adit", "Afif", "Hilmi"];
+        const soloOnlyPeople = shiftSolo;
 
         for (let i = 0; i < shuffledPeople.length; i += 3) {
             const shift = shuffledPeople.slice(i, i + 3);
             const hasKosong = shift.includes("KOSONG");
-            const hasInvalidPerson = invalidPeople.some(person => shift.includes(person));
+            const hasSoloPerson = soloOnlyPeople.some(person => shift.includes(person));
             
-            if (hasKosong && hasInvalidPerson) {
+            // Return false if someone NOT from shiftSolo is in same shift as KOSONG
+            if (hasKosong && !hasSoloPerson) {
                 return false;
             }
         }
@@ -127,8 +185,8 @@ function suffle(people) {
 // Fungsi untuk menampilkan hasil ke frontend
 document.addEventListener("DOMContentLoaded", () => {
     // Display going and notGoing arrays on frontend
-    document.getElementById("soloList").textContent = shftSolo.join(", ");
-    document.getElementById("duoList").textContent = shiftDuo.join(", ");
+    document.getElementById("soloList").textContent = shiftSolo.join(", ");
+    // document.getElementById("duoList").textContent = shiftDuo.join(", ");
 });
 
 document.getElementById("processSchedule").addEventListener("click", () => {

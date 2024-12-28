@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule Update</title>
+    <title>E9 Rolling Schedule</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,11 +33,26 @@
 </head>
 <body>
     <div class="container">
-        <h1>Update Schedule</h1>
+        <h1 style="text-align: center;">E9 Rolling Schedule</h1>
         <div id="attendanceInfo">
             <h3>Attendance:</h3>
-            <p><strong>Shift Solo:</strong> <span id="soloList"></span></p>
-            <p><strong>Shift Duo:</strong> <span id="duoList"></span></p>
+            <div class="shift-section">
+                <p><strong>Shift Solo:</strong> <span id="soloList"></span></p>
+                <form id="soloForm" onsubmit="event.preventDefault();">
+                    <input type="text" id="soloInput" placeholder="Enter name for solo shift">
+                    <button type="button" onclick="addToSoloList()">Add to Solo</button>
+                </form>
+            </div>
+            <div class="shift-section">
+                <p><strong>Shift Duo:</strong> <span id="duoList"></span></p>
+                <form id="duoForm" onsubmit="event.preventDefault();">
+                    <input type="text" id="duoInput" placeholder="Enter name for duo shift">
+                    <button type="button" onclick="addToDuoList()">Add to Duo</button>
+                </form>
+            </div>
+        </div>
+        <div class="shift-section">
+            <button type="button" onclick="clearShifts()">Clear All Shifts</button>
         </div>
         <button id="processSchedule">Process Schedule</button>
         <h3>Updated Schedule:</h3>
@@ -58,7 +73,7 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
             background-color: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -67,16 +82,16 @@
             color: #333;
         }
         button#processSchedule {
-            background-color: #4CAF50;
+            padding: 8px 15px;
+            background-color: #3498db;
             color: white;
             border: none;
-            padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.2s;
         }
         button#processSchedule:hover {
-            background-color: #45a049;
+            background-color: #2980b9;
         }
         table#scheduleTable {
             width: 100%;
@@ -94,6 +109,41 @@
         }
         table#scheduleTable tr:nth-child(even) {
             background-color: #f8f8f8;
+        }
+        .shift-section {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .shift-section h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .shift-section input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+            width: 200px;
+        }
+        .shift-section button {
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .shift-section button:hover {
+            background-color: #2980b9;
+        }
+        .shift-section p {
+            margin-top: 10px;
+            color: #666;
         }
     </style>
 
